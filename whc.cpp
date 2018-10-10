@@ -48,8 +48,12 @@ int main(void)
             DWORD style = GetWindowLong(hwnd, GWL_STYLE);
             DWORD exstyle = GetWindowLong(hwnd, GWL_EXSTYLE);
             DWORD cs = GetClassLong(hwnd, GCL_STYLE);
-            std::printf("%sHWND %p, Class '%s', Text '%s' WS_ 0x%08X WS_EX_ 0x%08X CS_ 0x%08X\n",
-                        str.c_str(), (void *)hwnd, szClass, szText, style, exstyle, cs);
+            UINT id = GetWindowLong(hwnd, GWL_ID);
+            RECT rc;
+            GetWindowRect(hwnd, &rc);
+            std::printf("%sHWND %p, Class '%s', Text '%s' WS_ 0x%08X WS_EX_ 0x%08X CS_ 0x%08X ID %u RC (%ld, %ld) - (%ld, %ld)\n",
+                        str.c_str(), (void *)hwnd, szClass, szText, style, exstyle, cs, id,
+                        rc.left, rc.top, rc.right, rc.bottom);
         }
 
         Sleep(1500);
